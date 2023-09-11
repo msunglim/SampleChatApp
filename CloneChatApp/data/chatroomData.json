@@ -1,0 +1,22 @@
+[
+    {
+        "pk":0,
+        "participants":[0,1],
+        "chatLog":[0,2,4,6,9]
+    },
+    {
+        "pk":1,
+        "participants":[0,1,2],
+        "chatLog":[1,3,5,7,8]
+    },
+    {
+        "pk":2,
+        "participants":[0,1,2,3],
+        "chatLog":[10,11,12]
+    },
+    {
+        "pk":3,
+        "participants":[0,1,2,3,4],
+        "chatLog":[13]
+    }
+]

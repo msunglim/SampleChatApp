@@ -1,0 +1,115 @@
+[
+    {
+        "pk":0,
+        "id":"a",
+        "pw":"a",
+        "name":"Buzz",
+        "profile":"https://www.pngitem.com/pimgs/m/184-1846102_buzz-georgia-tech-black-and-white-clipart-png.png",
+        "friends": [1,2,3,4,5,6,7,8,9,10],
+        "chatroom":[0,1,2,3]
+    },
+    {
+        "pk":1,
+        "id":"b",
+        "pw":"b",
+        "name":"Nyaong",
+        "profile":"https://img.freepik.com/free-photo/red-white-cat-i-white-studio_155003-13189.jpg?size=626&ext=jpg",
+        "friends": [0],
+        "chatroom":[0,1,2,3]
+    }
+    ,
+    {
+        "pk":2,
+        "id":"c",
+        "pw":"c",
+        "name":"Nyaaaaaaong",
+        "profile":"https://img.freepik.com/free-vector/cute-cat-with-love-sign-hand-cartoon-illustration-animal-nature-concept-isolated-flat-cartoon-style_138676-3419.jpg?size=626&ext=jpg",
+        "friends": [0],
+        "chatroom":[1,2,3]
+    }
+    ,
+    {
+        "pk":3,
+        "id":"d",
+        "pw":"d",
+        "name":"ddd",
+        "profile":"https://img.freepik.com/free-photo/front-view-sad-girl-being-bullied_23-2149748403.jpg?w=1060&t=st=1694311819~exp=1694312419~hmac=2707cf251a791a264721449328889405843ea85c302354cc7d0173902543f95b",
+        "friends": [0],
+        "chatroom":[2,3]
+    }
+    ,
+    {
+        "pk":4,
+        "id":"e",
+        "pw":"e",
+        "name":"eeeemascot",
+        "profile":"https://img.freepik.com/free-photo/closeup-portrait-stylish-cute-young-woman-with-long-brunette-hair-smiling-camera-hairdresser-salon_197531-3686.jpg?t=st=1694311819~exp=1694312419~hmac=24e623005cf4f6548a721ea907768f7a7313685db98de492cacf5f52f09ddcca",
+        "friends": [0],
+        "chatroom":[3]
+    }
+    ,
+    {
+        "pk":5,
+        "id":"f",
+        "pw":"f",
+        "name":"fff",
+        "profile":"https://img.freepik.com/premium-photo/handsome-businessman-wearing-protective-mask-gloves-holding-virus-blood-test-positive_600776-288.jpg",
+        "friends": [0],
+        "chatroom":[]
+    }
+    ,
+    {
+        "pk":6,
+        "id":"g",
+        "pw":"g",
+        "name":"ggggggggg",
+        "profile":"https://img.freepik.com/premium-photo/historic-colored-houses-center-bruges-belgium_1429-10406.jpg",
+        "friends": [0],
+        "chatroom":[]
+    }
+    
+    ,
+    {
+        "pk":7,
+        "id":"h",
+        "pw":"h",
+        "name":"home",
+        "profile":"https://img.freepik.com/premium-photo/attractive-healthy-young-woman-doing-exercises-while-resting-home_1429-9303.jpg",
+        "friends": [0],
+        "chatroom":[]
+    }
+    
+    ,
+    {
+        "pk":8,
+        "id":"x",
+        "pw":"x",
+        "name":"xyz",
+        "profile":"https://img.freepik.com/free-photo/blue-cushions-one-yellow-cushion_1203-321.jpg",
+        "friends": [0],
+        "chatroom":[]
+    }
+    
+    ,
+    {
+        "pk":9,
+        "id":"y",
+        "pw":"y",
+        "name":"yfi",
+        "profile":"https://img.freepik.com/free-photo/sunglasses_1203-7886.jpg",
+        "friends": [0],
+        "chatroom":[]
+    }
+    
+    ,
+    {
+        "pk":10,
+        "id":"z",
+        "pw":"z",
+        "name":"zzzzzzzz",
+        "profile":"https://img.freepik.com/free-photo/beautiful-clothes-shopping-store_1203-2232.jpg?t=st=1694312040~exp=1694312640~hmac=04dd21f5d63d268194e92fd9e9c9850f4db07fc2d063123c3ba77688d8e608b1",
+        "friends": [0],
+        "chatroom":[]
+    }
+    
+]
