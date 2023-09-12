@@ -10,6 +10,7 @@ props contians ..
 text
 placeholder
 setText
+hide
 */
 function UserInput(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -24,6 +25,7 @@ function UserInput(props: any): JSX.Element {
         onChangeText={t => {
           props.setText(t);
         }}
+        secureTextEntry={props.hide}
       />
     </View>
   );

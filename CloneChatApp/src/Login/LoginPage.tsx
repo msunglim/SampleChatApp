@@ -36,16 +36,36 @@ function LoginPage(props: any): JSX.Element {
 
   const [id, setId] = useState<string>('');
   const [pw, setPw] = useState<string>('');
+  const [userPK, setUserPK] = useState<number>(0);
 
-  function loginProcess() {
+  function loginProcess(id: number) {
     //search user id from the USER table and return matched userId primary key
-    let userPK = 0;
+    // let userPK = 0;
     //check if id and pw matched
-    if (true) {
-      navigation.navigate('ParentPage', {userPK: userPK});
-    }
+    // if (true) {
+      
+    navigation.navigate('ParentPage', {userPK: id});
+    // }
   }
 
+  function onPress() {
+    fetch('http://10.0.2.2:5000/login?id=' + id + '&pw=' + pw)
+      .then(response => response.json())
+      .then(data => {
+        if (data.result) {
+          //pass!. you are good to go!
+          setUserPK(data.userPK);
+          loginProcess(data.userPK);
+        } else {
+          //fail for mismatched pw or unexisted id.
+          console.log('fail to log in');
+        }
+      })
+      .catch(error => {
+        // Handle any errors that occur
+        console.error(error);
+      });
+  }
   return (
     <FullView>
       <KeyboardAvoidingView
@@ -56,14 +76,15 @@ function LoginPage(props: any): JSX.Element {
         <FlexCenterView>
           <MiddleSizeBlackText>L O G I N</MiddleSizeBlackText>
           <ExcuseMeVerticallyFivePercent />
-          <UserInput text={id} placeholder="id" setText={setId} />
+          <UserInput text={id} hide={false} placeholder="id" setText={setId} />
           <ExcuseMeVerticallyThreePercent />
-          <UserInput text={pw} placeholder="password" setText={setPw} />
+          <UserInput text={pw} hide={true} placeholder="password" setText={setPw} />
           <ExcuseMeVerticallyThreePercent />
           <LongButton
             text="Login"
             mode="contained"
-            onPressEvent={loginProcess}
+            onPressEvent={onPress}
+            // onPressEvent={loginProcess}
           />
         </FlexCenterView>
       </KeyboardAvoidingView>

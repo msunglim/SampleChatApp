@@ -2,51 +2,23 @@
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-  FlatList,
-} from 'react-native';
-import chatroomData from './../../data/chatroomData.json';
-import chatData from './../../data/chatData.json';
-import userData from './../../data/userData.json';
-import UserRow from '../common/UserRow';
+import {View, ScrollView} from 'react-native';
+// import chatroomData from './../../data/chatroomData.json';
+// import chatData from './../../data/chatData.json';
+// import userData from './../../data/userData.json';
 import {
   ExcuseMeHorizontallyFivePX,
-  FlexCenterView,
-  FlexView,
-  FullView,
   HEIGHT,
   HorizontalAlignedView,
-  IconImageContainer,
-  IconSizeImage,
   MiddleSizeBlackText,
   PostSizeImage,
   RedBorderView,
   SmallSizeGreyText,
   WIDTH,
-  freeImageURL1,
-  freeImageURL2,
 } from '../styles';
 import {IconButton} from 'react-native-paper';
 import BottomBar from './BottomBar';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
-interface Chat {
-  pk: number;
-  writer: number;
-  date: string;
-  content: string;
-  image: string;
-  emoji: string;
-}
+import {Chat, Chatroom, User} from '../interfaces';
 
 /*
 props contians ..
@@ -55,7 +27,7 @@ chatroomPK
 
 
 */
-function getChatList(messages: any): JSX.Element {
+function getChatList(messages: any, userData: User[]): JSX.Element {
   if (messages) {
     let container = messages.map(
       (content: any, index: React.Key | null | undefined) => (
@@ -70,9 +42,7 @@ function getChatList(messages: any): JSX.Element {
               <MiddleSizeBlackText>
                 {userData[content.writer].name}:
               </MiddleSizeBlackText>
-              <PostSizeImage
-                source={{uri: content.image}}
-              />
+              <PostSizeImage source={{uri: content.image}} />
             </HorizontalAlignedView>
           )}
           <ExcuseMeHorizontallyFivePX />
@@ -94,6 +64,11 @@ function ChatroomPage(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const userPK = props.route.params.userPK;
   const chatroomPK = props.route.params.chatroomPK;
+  const [chatData, setChatData] = useState<Chat[]>(props.route.params.chatData);
+  const [chatroomData, setChatroomData] = useState<Chatroom[]>(
+    props.route.params.chatroomData,
+  );
+  const [userData, setUserData] = useState<User[]>(props.route.params.userData);
 
   const chatroom = chatroomData[chatroomPK];
   const participants = chatroom.participants;
@@ -127,7 +102,7 @@ function ChatroomPage(props: any): JSX.Element {
 
       let copy = [...chats];
       for (let i = 0; i < chatLog.length; i++) {
-        console.log(chatData[chatLog[i]]);
+        // console.log(chatData[chatLog[i]]);
         copy.push(chatData[chatLog[i]]);
       }
       setChats(copy);
@@ -158,7 +133,7 @@ function ChatroomPage(props: any): JSX.Element {
           setY(e.nativeEvent.layout.height + HEIGHT);
           // console.log('hahaha', e.nativeEvent.layout.height);
         }}>
-        {getChatList(chats)}
+        {getChatList(chats, userData)}
       </ScrollView>
 
       <BottomBar
@@ -170,6 +145,7 @@ function ChatroomPage(props: any): JSX.Element {
         setChatLog={setChatLog}
         chats={chats} //임시직
         setChats={setChats} //임시직
+        chatData={chatData}
       />
     </View>
   );

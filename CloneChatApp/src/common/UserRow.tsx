@@ -24,7 +24,6 @@ import {
   TrueDivier,
   freeImageURL1,
 } from '../styles';
-import userData from './../../data/userData.json';
 import {Divider} from 'react-native-paper';
 /*
 props contians ..
@@ -32,6 +31,10 @@ pk
 */
 function UserRow(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const userData = props.userData
+  if (userData.length ===0){
+    return <></>
+  }
   const user = userData[props.userPK];
   const profile = user.profile;
   const name = user.name;
