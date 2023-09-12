@@ -18,14 +18,24 @@ import {
   TrueDivier,
 } from '../styles';
 import ParentHeader from '../common/ParentHeader';
-import userData from './../../data/userData.json';
-import chatroomData from './../../data/chatroomData.json';
-import chatData from './../../data/chatData.json';
+// import userData from './../../data/userData.json';
+// import chatroomData from './../../data/chatroomData.json';
+// import chatData from './../../data/chatData.json';
 import UserRow from '../common/UserRow';
 import ChatroomRow from '../common/ChatroomRow';
 
 function ChatroomList(props: any): JSX.Element {
   let myPK = props.userPK;
+  let userData = props.userData;
+  let chatData = props.chatData;
+  let chatroomData = props.chatroomData;
+  if (
+    userData.length === 0 ||
+    chatroomData.length === 0 ||
+    chatData.length === 0
+  ) {
+    return <></>;
+  }
   let chatroomList = userData[myPK].chatroom;
   let chats = [];
   for (let i: number = 0; i < chatroomList.length; i++) {
@@ -56,22 +66,41 @@ function ChatroomList(props: any): JSX.Element {
   }
 
   let container = sortedChatrommList.map((chatroomPK, index) => (
-    <ChatroomRow userPK={myPK} chatroomPK={chatroomPK} key={index} />
+    <ChatroomRow
+      userPK={myPK}
+      chatroomPK={chatroomPK}
+      key={index}
+      userData={userData}
+      chatData={chatData}
+      chatroomData={chatroomData}
+    />
   ));
+  // return <></>
   return <ScrollView>{container}</ScrollView>;
 }
 /*
 props contians ..
 userPK
+userData
+chatData
+chatroomData
 */
 function ChatroomListPage(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const userPK = props.userPK;
   
+  const userData = props.userData;
+  const chatData = props.chatData;
+  const chatroomData = props.chatroomData;
   return (
     <PaddingViewWithNav>
       <ParentHeader title={'Chats'} />
-      <ChatroomList userPK={userPK} />
+      <ChatroomList
+        userPK={userPK}
+        userData={userData}
+        chatData={chatData}
+        chatroomData={chatroomData}
+      />
     </PaddingViewWithNav>
   );
 }
