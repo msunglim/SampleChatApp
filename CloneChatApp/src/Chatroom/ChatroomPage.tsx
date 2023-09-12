@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useState, useEffect, useRef} from 'react';
@@ -16,8 +17,9 @@ import {
   SmallSizeGreyText,
   WIDTH,
 } from '../styles';
-import {IconButton} from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import BottomBar from './BottomBar';
+
 import {Chat, Chatroom, User} from '../interfaces';
 
 /*
@@ -42,6 +44,7 @@ function getChatList(messages: any, userData: User[]): JSX.Element {
               <MiddleSizeBlackText>
                 {userData[content.writer].name}:
               </MiddleSizeBlackText>
+
               <PostSizeImage source={{uri: content.image}} />
             </HorizontalAlignedView>
           )}
@@ -77,9 +80,42 @@ function ChatroomPage(props: any): JSX.Element {
   const [chats, setChats] = useState<Chat[]>([]);
 
   const scrollViewRef = useRef<ScrollView>(null);
+  // This page is to get (lat, lon) location. https://www.npmjs.com/package/@react-native-community/geolocation
+  // This is for reverse geocode meaning (lat,lon) to address	https://github.com/marlove/react-native-geocoding 
+  // import Geolocation from '@react-native-community/geolocation';
+  // import Geocoder from "react-native-geocoding";
+  // you would need Google API key code because react-native-geocoding lib is using Google Geo API
+  // To get API KEY, go to https://console.cloud.google.com/apis/dashboard?project=planar-beach-387620
+  // Set to use Geocoding API and get the API key from Google cloud
+  // Geocoder.init("YOUR_API_KEY_HERE");
+  /*   const shareLocation = () => {
+      console.log('share Location')
+      Geolocation.getCurrentPosition(async info => {
+          const address: string = await fetchAddress(info.coords.latitude, info.coords.longitude);
+          if (address) {
+              console.log("Current address:", address);
+              // TODO: set this address to your Message to send.
+          } else {
+              console.error("Could not fetch the address.");
+          }
+      });
+      closeModal()
+   }; */
 
+  /* const fetchAddress = async (latitude: any, longitude: any) => {
+   console.log('lat', latitude)
+   console.log('longitude', longitude)
+   var address: string = "";
+   await Geocoder.from(latitude, longitude)
+       .then(json => {
+           console.log('first', json.results[0].formatted_address);
+           address = json.results[0].formatted_address
+       })
+       .catch(error => console.warn(error));
+   return address;
+};*/
   const [y, setY] = useState<number>(HEIGHT);
-  function handleScroll(event: {nativeEvent: {contentOffset: {y: number}}}) {
+  function handleScroll(event: { nativeEvent: { contentOffset: { y: number } } }) {
     const scrollY: number = event.nativeEvent.contentOffset.y;
     if (scrollY >= 0 && scrollY < HEIGHT) {
       setY(scrollY);
@@ -88,7 +124,7 @@ function ChatroomPage(props: any): JSX.Element {
   function keyboardEvent(type: number) {
     if (type == 0) {
       //키보드 온. 더 아래로 내려갓
-      scrollViewRef.current?.scrollTo({x: 0, y: y + 300, animated: true});
+      scrollViewRef.current?.scrollTo({ x: 0, y: y + 300, animated: true });
       setY(y + 300);
       // console.log('down TO ', y + 300);
     } else {
@@ -114,6 +150,7 @@ function ChatroomPage(props: any): JSX.Element {
     }
   }, [chats]);
   const [scrollHeight, setScrollHeight] = useState<number>(HEIGHT * 0.97);
+  
   return (
     <View
       style={{
