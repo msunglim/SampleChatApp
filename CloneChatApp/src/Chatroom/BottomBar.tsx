@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {HEIGHT, HorizontalAlignedView} from '../styles';
 import {IconButton} from 'react-native-paper';
-import { formatDateToCustomString } from '../common/DateConverter';
+import {formatDateToCustomString} from '../common/DateConverter';
 
 /*
 props contians ..
@@ -24,41 +24,75 @@ setChats
 function BottomBar(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const [inputText, setInputText] = useState<string>('');
-  const userPK = props.userPK
-  const chatroomPK = props.chatroomPK
-  const addPhoto=(uri:string)=>{
+  const userPK = props.userPK;
+  const chatroomPK = props.chatroomPK;
+  const addPhoto = (uri: string) => {
     let copy = [...props.chats];
-      copy.push({
-        pk: 15,
-        writer: userPK,
-        date: formatDateToCustomString(new Date()),
-        content: '',
-        image: uri,
-        emoji: '',
+    let new_chat = {
+      pk: props.chatData.length,
+      writer: userPK,
+      date: formatDateToCustomString(new Date()),
+      content: '',
+      image: uri,
+      emoji: '',
+    };
+    copy.push(new_chat);
+    props.setChats(copy);
+
+    fetch('http://10.0.2.2:5000/addChat?chatroomPK=' + chatroomPK, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(new_chat),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("updated");
+        
+        // console.log('서버 응답:', data);
+      })
+      .catch(error => {
+        console.log("updated failed");
+        // console.error('오류 발생:', error);
       });
-      props.setChats(copy);
-  }
+  };
   const handleSubmit = () => {
-      if(inputText.length == 0){
-        return
-      }
-      //이게 지금은, chats에다가 add하지만.
-      //db가 들어간다면, 일단 chatData에 하나 추가해.
-      //추가하는 내용은 chatdata의 규격에 맞게한다.
-      //그리고 chat pk를 얻고, 그것을 chatroom[chatroomPK]에 추가함
-      //그리고 그것을 chatLogs 라는 state variable에 추가시켜서
-      //useEffect로 cahtLogs가 없데이트될때마다 chats를 업데이트해주면된다.
-      let copy = [...props.chats];
-      copy.push({
-        pk: 15,
-        writer: userPK,
-        date: formatDateToCustomString(new Date()),
-        content: inputText,
-        image: '',
-        emoji: '',
+    if (inputText.length == 0) {
+      return;
+    }
+    //이게 지금은, chats에다가 add하지만.
+    //db가 들어간다면, 일단 chatData에 하나 추가해.
+    //추가하는 내용은 chatdata의 규격에 맞게한다.
+    //그리고 chat pk를 얻고, 그것을 chatroom[chatroomPK]에 추가함
+    //그리고 그것을 chatLogs 라는 state variable에 추가시켜서
+    //useEffect로 cahtLogs가 없데이트될때마다 chats를 업데이트해주면된다.
+    let copy = [...props.chats];
+    let new_chat = {
+      pk: props.chatData.length,
+      writer: userPK,
+      date: formatDateToCustomString(new Date()),
+      content: inputText,
+      image: '',
+      emoji: '',
+    };
+    copy.push(new_chat);
+    props.setChats(copy);
+    setInputText('');
+    fetch('http://10.0.2.2:5000/addChat?chatroomPK=' + chatroomPK, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(new_chat),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('서버 응답:', data);
+      })
+      .catch(error => {
+        console.error('오류 발생:', error);
       });
-      props.setChats(copy);
-      setInputText('');
   };
   return (
     <HorizontalAlignedView
@@ -70,18 +104,19 @@ function BottomBar(props: any): JSX.Element {
           // justifyContent: 'flex-end',
         }
       }>
-      <IconButton icon={'plus'} 
-      onPress={()=>{
-        navigation.navigate('CameraPage',{
-          userPK:userPK,
-          chatroomPK:chatroomPK,
-          addPhoto:addPhoto
-        })
-      }}
+      <IconButton
+        icon={'camera'}
+        onPress={() => {
+          navigation.navigate('CameraPage', {
+            userPK: userPK,
+            chatroomPK: chatroomPK,
+            addPhoto: addPhoto,
+          });
+        }}
       />
       <TextInput
         onSubmitEditing={() => {
-          handleSubmit()
+          handleSubmit();
         }}
         value={inputText}
         blurOnSubmit={false}
