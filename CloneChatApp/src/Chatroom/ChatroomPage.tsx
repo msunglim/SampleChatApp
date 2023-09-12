@@ -172,6 +172,7 @@ function ChatroomPage(props: any): JSX.Element {
     }
   }, [chats]);
   const [scrollHeight, setScrollHeight] = useState<number>(HEIGHT * 0.97);
+  
   return (
     <View
       style={{
