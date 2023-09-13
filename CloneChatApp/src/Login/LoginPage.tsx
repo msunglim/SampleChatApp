@@ -50,6 +50,8 @@ function LoginPage(props: any): JSX.Element {
   }
 
   function onPress() {
+    console.log("id", id,"pw", pw);
+    
     fetch(SERVER+'login?id=' + id + '&pw=' + pw)
       .then(response => response.json())
       .then(data => {

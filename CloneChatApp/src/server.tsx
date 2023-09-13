@@ -1,1 +1,1 @@
-export const SERVER = 'https://sample-chat-app-server-9cf36b9eff84.herokuapp.com/'
+export const SERVER = 'https://sample-app-monsun-ea21f3190319.herokuapp.com/'
