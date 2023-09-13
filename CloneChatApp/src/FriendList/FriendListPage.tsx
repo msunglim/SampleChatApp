@@ -25,16 +25,22 @@ import {
 } from '../styles';
 import ParentHeader from '../common/ParentHeader';
 
-import userData from './../../data/userData.json';
+// import userData from './../../data/userData.json';
 function FrinedList(props: any): JSX.Element {
+  if (props.userData.length === 0 ) {
+    return <></>;
+  }
+  
   let myPK = props.id;
+  let userData = props.userData
+  // let userData = props.userData;
   let frinedList = userData[myPK].friends;
-  let container = frinedList.map((friendPK, index) => (
-    <UserRow userPK={friendPK} key={index} />
+  let container = frinedList.map((friendPK: number, index: number) => (
+    <UserRow userPK={friendPK} key={index} userData={userData} />
   ));
   return (
     <ScrollView>
-      <UserRow userPK={myPK} />
+      <UserRow userPK={myPK} userData={userData}/>
       <TrueDivier />
       <SmallSizeBlackText>Friends {frinedList.length}</SmallSizeBlackText>
       {container}
@@ -44,17 +50,21 @@ function FrinedList(props: any): JSX.Element {
 /*
 props contians ..
 userPK
+userData
 */
 function FriendListPage(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  //   const userIdPk = props.route.params.userIdPK
-  const userPK = 0;
+  const userPK = props.userPK;
+
+  const userData = props.userData;
+  
+  // const userPK = 0;
 
   return (
     <PaddingViewWithNav>
       <ParentHeader title={'Friends'} />
 
-      <FrinedList id={userPK} />
+      <FrinedList id={userPK} userData={userData} />
     </PaddingViewWithNav>
   );
 }

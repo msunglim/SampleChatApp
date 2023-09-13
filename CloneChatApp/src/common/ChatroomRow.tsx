@@ -10,9 +10,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import chatroomData from './../../data/chatroomData.json';
-import userData from './../../data/userData.json';
-import chatData from './../../data/chatData.json';
+
 import {
   CenterView,
   ExcuseMeHorizontallyFivePX,
@@ -34,7 +32,12 @@ chatroomPK
 */
 function ChatroomRow(props: any): JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
+  const chatData = props.chatData;
+  const chatroomData = props.chatroomData;
+  const userData = props.userData;
   const chatroom = chatroomData[props.chatroomPK];
+
   const participants = chatroom.participants;
   const chats = chatroom.chatLog;
   const lastChat = chatData[chats[chats.length - 1]].content;
@@ -92,6 +95,9 @@ function ChatroomRow(props: any): JSX.Element {
     navigation.navigate('ChatroomPage', {
       chatroomPK: props.chatroomPK,
       userPK: props.userPK,
+      userData: userData,
+      chatroomData: chatroomData,
+      chatData: chatData,
     });
   }
   return (

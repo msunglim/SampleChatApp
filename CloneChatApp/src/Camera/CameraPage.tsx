@@ -13,7 +13,6 @@ import {
   ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
-import {HEIGHT, WIDTH} from '../styles';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 
 /*
