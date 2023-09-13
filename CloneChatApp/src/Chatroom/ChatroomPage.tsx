@@ -44,7 +44,6 @@ function getChatList(messages: any, userData: User[]): JSX.Element {
               <MiddleSizeBlackText>
                 {userData[content.writer].name}:
               </MiddleSizeBlackText>
-
               <PostSizeImage source={{uri: content.image}} />
             </HorizontalAlignedView>
           )}

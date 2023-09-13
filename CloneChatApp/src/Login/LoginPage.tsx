@@ -26,6 +26,7 @@ import UserInput from '../common/UserInput';
 import LongButton from '../common/LongButton';
 import {IconButton} from 'react-native-paper';
 import UserRow from '../common/UserRow';
+import { SERVER } from '../server';
 
 /*
 props contians ..
@@ -49,9 +50,13 @@ function LoginPage(props: any): JSX.Element {
   }
 
   function onPress() {
-    fetch('http://10.0.2.2:5000/login?id=' + id + '&pw=' + pw)
+    console.log("id", id,"pw", pw);
+    
+    fetch(SERVER+'login?id=' + id + '&pw=' + pw)
       .then(response => response.json())
       .then(data => {
+        console.log("되누", data);
+        
         if (data.result) {
           //pass!. you are good to go!
           setUserPK(data.userPK);
@@ -63,6 +68,7 @@ function LoginPage(props: any): JSX.Element {
       })
       .catch(error => {
         // Handle any errors that occur
+        console.log("안되누",error, SERVER+'login?id');
         console.error(error);
       });
   }
