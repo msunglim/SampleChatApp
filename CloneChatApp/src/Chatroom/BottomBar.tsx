@@ -13,6 +13,7 @@ import {
 import {HEIGHT, HorizontalAlignedView} from '../styles';
 import {IconButton} from 'react-native-paper';
 import {formatDateToCustomString} from '../common/DateConverter';
+import {SERVER} from '../server';
 
 /*
 props contians ..
@@ -39,7 +40,7 @@ function BottomBar(props: any): JSX.Element {
     copy.push(new_chat);
     props.setChats(copy);
 
-    fetch('http://10.0.2.2:5000/addChat?chatroomPK=' + chatroomPK, {
+    fetch(SERVER+'addChat?chatroomPK=' + chatroomPK, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,12 +49,12 @@ function BottomBar(props: any): JSX.Element {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("updated");
-        
+        console.log('updated');
+
         // console.log('서버 응답:', data);
       })
       .catch(error => {
-        console.log("updated failed");
+        console.log('updated failed');
         // console.error('오류 발생:', error);
       });
   };
@@ -79,7 +80,8 @@ function BottomBar(props: any): JSX.Element {
     copy.push(new_chat);
     props.setChats(copy);
     setInputText('');
-    fetch('http://10.0.2.2:5000/addChat?chatroomPK=' + chatroomPK, {
+
+    fetch(SERVER + 'addChat?chatroomPK=' + chatroomPK, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -14,6 +14,7 @@ import {BottomNavigation} from 'react-native-paper';
 import FriendListPage from '../FriendList/FriendListPage';
 import ChatroomListPage from '../ChatroomList/ChatroomListPage';
 import { Chat, Chatroom, User } from '../interfaces';
+import { SERVER } from '../server';
 
 
 /*
@@ -45,7 +46,7 @@ function ParentPage(props: any): JSX.Element {
   const [userData, setUserData] = useState<User[]>([]);
   const [chatroomData, setChatroomData] = useState<Chatroom[]>([]);
   useEffect(() => {
-    fetch('http://10.0.2.2:5000/chat_user_chatroomData')
+    fetch(SERVER+'chat_user_chatroomData')
       .then(response => response.json())
       .then(data => {
         console.log('fetch');
